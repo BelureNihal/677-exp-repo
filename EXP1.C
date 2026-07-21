@@ -47,7 +47,7 @@ int main(void)
         return 1;
     }
 
-    // Use a Variable Length Array (VLA) after size is validated
+
     int arr[size]; 
 
     printf("Enter the elements of an array (in sorted order):\n");
