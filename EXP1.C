@@ -1,74 +1,54 @@
 #include <stdio.h>
 
-int search(int arr[], int size, int target) 
-{
-    int low = 0;
-    int high = size - 1;
-    int result_index = -1; 
-
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        if (arr[mid] == target) {
-            result_index = mid; 
-            high = mid - 1;     
-        } 
-        else if (arr[mid] > target) {
-            high = mid - 1;
-        } 
-        else {
-            low = mid + 1;
-        }
-    }
-    return result_index; 
-}
-
-int count(int arr[], int size, int target) 
-{
-    int occurrences = 0; 
-    for (int i = 0; i < size; i++) {
+int First_ccurrence(int arr[], int size, int target) {
+    int i; 
+    for (i = 0; i < size; i++) {
         if (arr[i] == target) {
-            occurrences++;
+            return i; 
         }
     }
-    return occurrences;
+    return -1; 
 }
 
-int main(void) 
-{
-    int size;
-    int occurrence;
-    int total_count;
-    int target;
-
-    printf("Enter the size of an array: ");
-    if (scanf("%d", &size) != 1 || size <= 0) {
-        printf("Invalid array size.\n");
-        return 1;
+int count(int arr[], int size, int target) {
+    int counter = 0; 
+    int i; 
+    for (i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            counter++;
+        }
     }
+    return counter; 
+}
 
+int main() {
+    int size, target;
+    int firstPosition;
+    int T_Count;
+    int i; 
 
-    int arr[size]; 
+    printf("Enter the number of elements in the array: ");
+    scanf("%d", &size);
 
-    printf("Enter the elements of an array (in sorted order):\n");
-    for (int i = 0; i < size; i++) {
+    int arr[size];
+
+    printf("Enter the elements you want in the array:\n");
+    for (i = 0; i < size; i++) {
         scanf("%d", &arr[i]);
     }
 
-    printf("Enter the target element of the same array: ");
+    printf("Enter the target number to search: ");
     scanf("%d", &target);
 
-    occurrence = search(arr, size, target);
-    
-    if (occurrence != -1) {
-        printf("1st occurrence of %d is at index %d\n", target, occurrence);
-    } else {
-        printf("The element %d does not exist in the array.\n", target);
-    }
+    firstPosition = First_ccurrence(arr, size, target);
+    T_Count = count(arr, size, target);
 
-    total_count = count(arr, size, target);
-    printf("The target %d occurred %d times in the whole array.\n", target, total_count);
+    if (firstPosition != -1) {
+        printf("\nNumber of occurrences of %d: %d\n", target, T_Count);
+        printf("First occurrence position (Index): %d \n", firstPosition );
+    } else {
+        printf("\nElement %d was not found in the array.\n", target);
+    }
 
     return 0;
 }
-
