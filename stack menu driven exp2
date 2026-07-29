@@ -1,0 +1,112 @@
+#include <stdio.h>
+
+#define Maxsize 10
+
+int stack[Maxsize];
+int top = -1;
+
+void push(int x, int maxsize) {
+    if (top == maxsize - 1) {
+        printf("\nStack is full\n");
+    } else {
+        top++;
+        stack[top] = x;
+        printf("\n%d pushed into stack.\n", x);
+    }
+}
+
+void pop() {
+    if (top == -1) {
+        printf("stack is empty");
+    } else {
+        printf("popped element:%d\n", stack[top]);
+        top--;
+    }
+}
+
+void peek() {
+    if (top == -1) {
+        printf("\nStack is empty");
+    } else {
+        printf("Top element:%d\n", stack[top]);
+    }
+}
+
+void display() {
+    int i; /* Declared outside for pre-C99 compiler compatibility */
+
+    if (top == -1) {
+        printf("\nStack is empty!\n");
+        printf("|   |\n");
+        printf(" ---\n");
+    } else {
+        printf("\nElements in Stack :\n\n");
+        
+        for (i = top; i >= 0; i--) {
+            if (i == top) {
+                printf("| %2d | \n", stack[i]);
+            } else {
+                printf("| %2d |\n", stack[i]);
+            }
+            printf("|----|\n");
+        }
+    }
+}
+
+int main() {
+    int choice;
+    int size;
+    int x;
+
+    printf("enter the maximum size of the array(Maximum can be %d):- ", Maxsize);
+    scanf("%d", &size);
+
+    if (size > Maxsize || size <= 0) {
+        printf("invalid size. Setting capacity to %d.\n", Maxsize);
+        size = Maxsize;
+    }
+
+    do {
+        printf("enter 1 to push an element\n");
+        printf("enter 2 to pop an element\n");
+        printf("enter 3 to display an element\n");
+        printf("enter 4 to peek an element\n");
+        printf("enter 5 to exit\n");
+
+        if (scanf("%d", &choice) != 1) {
+            printf("\nInvalid input! Please enter a number.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                printf("enter the element you want to push: ");
+                scanf("%d", &x);
+                push(x, size);
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                peek();
+                break;
+
+            case 5:
+                printf("exiting the program..\n");
+                break;
+
+            default:
+                printf("invalid option choose a number within the range.\n");
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
